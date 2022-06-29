@@ -1,17 +1,11 @@
 class Person
-  extend ActiveModel::Callbacks
+  include ActiveModel::Conversion
 
-  define_model_callbacks :update
-
-  before_update :reset_me
-
-  def update
-    run_callbacks(:update) do
-      # This method is called when update is called on an object.
-    end
+  def persisted?
+    false
   end
 
-  def reset_me
-    # This method is called when update is called on an object as a before_update callback is defined.
+  def id
+    nil
   end
 end
