@@ -1,5 +1,5 @@
 class Person
-  include ActiveModel::Serialization
+  include ActiveModel::Serializers::JSON
 
   attr_accessor :name
 
