@@ -1,18 +1,17 @@
 class Person
-  include ActiveModel::AttributeMethods
+  extend ActiveModel::Callbacks
 
-  attribute_method_prefix 'reset_'
-  attribute_method_suffix '_highest?'
-  define_attribute_methods 'age'
+  define_model_callbacks :update
 
-  attr_accessor :age
+  before_update :reset_me
 
-  private
-    def reset_attribute(attribute)
-      send("#{attribute}=", 0)
+  def update
+    run_callbacks(:update) do
+      # This method is called when update is called on an object.
     end
+  end
 
-    def attribute_highest?(attribute)
-      send(attribute) > 100
-    end
+  def reset_me
+    # This method is called when update is called on an object as a before_update callback is defined.
+  end
 end
